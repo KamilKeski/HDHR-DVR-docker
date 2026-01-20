@@ -12,7 +12,11 @@ NGINX_SRV_CONF=${CONF_DIR_NGINX}/nginx-dvrui.conf
 PHP_WWW_CONF=${CONF_DIR_PHP}/www.conf
 DVR_USR=dvr
 DVR_GRP=dvr
-PHP_ETC=/etc/php7
+# Detect PHP config directory dynamically (works with PHP 8.x in Alpine)
+PHP_ETC=$(find /etc -maxdepth 1 -type d -name "php*" | head -1)
+if [ -z "$PHP_ETC" ]; then
+    PHP_ETC=/etc/php81
+fi
 NGINX_ETC=/etc/nginx
 
 ################

@@ -1,4 +1,4 @@
-FROM alpine:3.15.4
+FROM alpine:latest
 WORKDIR /
 
 # Basics
@@ -8,17 +8,17 @@ RUN apk add --no-cache nginx supervisor wget grep curl sqlite shadow
 RUN mkdir -p /HDHomeRunDVR
 
 #Install PHP 
-RUN apk add --no-cache php7 \
-	php7-common \
-	php7-fpm \
-	php7-opcache \
-	php7-zip \
-	php7-curl \
-	php7-xml \
-	php7-json \
-	php7-fileinfo \
-	php7-dom \
-	php7-pdo_sqlite 
+RUN apk add --no-cache php \
+	php-common \
+	php-fpm \
+	php-opcache \
+	php-zip \
+	php-curl \
+	php-xml \
+	php-json \
+	php-fileinfo \
+	php-dom \
+	php-pdo_sqlite 
 
 #configure defaults
 RUN mkdir -p /HDHomeRunDVR/defaults
@@ -30,7 +30,7 @@ COPY config/supervisord.conf /etc/supervisor.d/supervisord.conf
 
 #Configure PHP
 RUN mkdir -p /run/php
-RUN touch /run/php/php7-fpm.pid
+RUN touch /run/php/php-fpm.pid
 
 #Configure Nginx
 RUN mkdir -p /run/nginx
